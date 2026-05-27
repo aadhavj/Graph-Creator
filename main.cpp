@@ -28,7 +28,19 @@ struct graph{
 		a->paths.push_back(b);
 	}
 	vertex* locate(string name) {for (const auto& v : vertices) {if (v->name == name){return v;}}return nullptr;}
-	void printGraph() {for (const auto& v : vertices) {cout << "Name: " << v->name << endl; cout << "Leads:"; for (const auto& p : v->paths) {cout << p->name << " ";}cout << endl;}}
+	int getIndex(vector<vertex*> a, vertex* b){for (int i = 0;i < a.size(); i++){if (a[i] == b){return i;}}return -1;}
+	void printGraph() {
+		cout << " \t";
+		for (const auto& v : vertices) {cout << v->name << "\t";}
+		cout << endl;
+		for (const auto& v : vertices) {
+			cout << v->name << "\t";
+			for (const auto& b : vertices){
+				if (this->getIndex(v->paths, b) != -1){cout << "1\t";}else{cout << "0\t";}
+			}
+			cout << endl;
+		}
+	}
 	int getEdgeWeight(vertex* v1, vertex* v2){for (const auto& e : edges) {if (e->v1 == v1 && e->v2 == v2) {return e->weight;}}}
 	int findSmallestDist(vertex* v1, vertex* v2){
 		vector<vertex*> visited;
